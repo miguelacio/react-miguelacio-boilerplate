@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+/**
+ * Home Screen
+ */
+import React, { useReducer } from "react";
+import { Container } from "./styled";
+import reducer, { initialState } from "./reducer";
+import Button from "@material-ui/core/Button";
+import { TEST_REDUCER } from "./constants";
 
-class Example extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const Home = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const handleOnClick = () =>
+    dispatch({ type: TEST_REDUCER, testValue: "USE REDUCER HOOK" });
+  const { testValue } = state;
+  return (
+    <Container>
+      <Button onClick={handleOnClick} variant="contained" color="primary">
+        {testValue}
+      </Button>
+    </Container>
+  );
+};
 
-export default Example;
+export const Usage = () => {
+  return <Home />;
+};
+Home.title = "HomeUsage";
+
+export default Home;
